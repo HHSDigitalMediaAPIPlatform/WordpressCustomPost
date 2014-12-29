@@ -1,0 +1,16 @@
+div[id$="cdccs_topictree_control"] {
+  display: inline-block;
+}
+div.hhs_digital_media_form_field {
+  margin-top: 15px;
+}
+div.hhs_digital_media_form_field label, div.hhs_digital_media_form_field div.label {
+  width: 150px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+div.hhs_digital_media_form_field_options label {
+  width: 150px;
+  display: inline-block;
+}

@@ -1,0 +1,5 @@
+*.swp
+.svn
+deploy_module.bat
+deploy_module_log.txt
+deploy_module_log2.txt
