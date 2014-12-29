@@ -14,3 +14,7 @@ div.hhs_digital_media_form_field_options label {
   width: 150px;
   display: inline-block;
 }
+
+div.hhs_digital_media_form_field select {
+  width: 250px;
+}

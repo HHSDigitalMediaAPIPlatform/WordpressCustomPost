@@ -67,16 +67,21 @@ function hhs_digital_media_admin() {
 
 function hhs_digital_media_select_content_meta_box( $hhs_digital_media_item ) {
   // Retrieve current name of the Director and Movie Rating based on review ID
-  $source = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_source', true ) );
+  $source = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_sourceval', true ) );
   $search_type = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_searchtype', true ) );
   if ($search_type == "") {
     $search_type = "0";
   }
+  $from_date = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_fromdate', true ) );
+  $media_types = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_mediatypesval', true ) );
+  $topics = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_topictree', true ) );
+  $title = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_titleval', true ) );
+  $url_id = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_urlmediaidval', true ) );
 
   ?>
     <div class="hhs_digital_media_form_field">
       <label for="cdccs_source">Source:</label>
-        <select style="width: 100px" id="cdccs_source" name="cdccs_source">
+        <select id="cdccs_source" name="cdccs_source">
         </select>
     </div>
     <div class="hhs_digital_media_form_field">
@@ -107,10 +112,10 @@ function hhs_digital_media_select_content_meta_box( $hhs_digital_media_item ) {
     <div id="searchbyurl">
       <div class="hhs_digital_media_form_field">
         <label for="cdccs_url">Url Contains:</label>
-        <input type="text" id="cdccs_url" name="cdccs_url"/>
+        <input type="text" id="cdccs_url" name="cdccs_url" size="100"/>
       </div>
     </div>
-    <input type="hidden" name="cdccs_sourceval" id="cdccs_sourceval"/>
+    <input type="hidden" name="cdccs_sourceval" id="cdccs_sourceval" value="<?php echo $source ?>"/>
     <input type="hidden" name="cdccs_mediatypesval" id="cdccs_mediatypesval"/>
     <input type="hidden" name="cdccs_topictree" id="cdccs_topictree"/>
     <input type="hidden" name="cdccs_titleval" id="cdccs_titleval"/>
