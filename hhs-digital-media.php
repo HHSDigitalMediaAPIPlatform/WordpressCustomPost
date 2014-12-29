@@ -76,6 +76,7 @@ function hhs_digital_media_select_content_meta_box( $hhs_digital_media_item ) {
   $media_types = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_mediatypesval', true ) );
   $topics = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_topictree', true ) );
   $title = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_titleval', true ) );
+  $url = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_url', true ) );
   $url_id = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_urlmediaidval', true ) );
 
   ?>
@@ -92,7 +93,7 @@ function hhs_digital_media_select_content_meta_box( $hhs_digital_media_item ) {
     <div id="searchbymetadata">
       <div class="hhs_digital_media_form_field">
         <label for="cdccs_fromdate">From Date:</label>
-        <input type="text" id="cdccs_fromdate" name="cdccs_fromdate"/>
+        <input type="text" id="cdccs_fromdate" name="cdccs_fromdate" value="<?php echo $from_date ?>"/>
       </div>
       <div class="hhs_digital_media_form_field">
         <label for="cdccs_mediatypes">Media Types:</label>
@@ -112,49 +113,65 @@ function hhs_digital_media_select_content_meta_box( $hhs_digital_media_item ) {
     <div id="searchbyurl">
       <div class="hhs_digital_media_form_field">
         <label for="cdccs_url">Url Contains:</label>
-        <input type="text" id="cdccs_url" name="cdccs_url" size="100"/>
+        <input type="text" id="cdccs_url" name="cdccs_url" size="100" value="<?php echo $url ?>"/>
       </div>
     </div>
     <input type="hidden" name="cdccs_sourceval" id="cdccs_sourceval" value="<?php echo $source ?>"/>
-    <input type="hidden" name="cdccs_mediatypesval" id="cdccs_mediatypesval"/>
-    <input type="hidden" name="cdccs_topictree" id="cdccs_topictree"/>
-    <input type="hidden" name="cdccs_titleval" id="cdccs_titleval"/>
-    <input type="hidden" name="cdccs_urlmediaidval" id="cdccs_urlmediaidval"/>
+    <input type="hidden" name="cdccs_mediatypesval" id="cdccs_mediatypesval" value="<?php echo $media_types ?>"/>
+    <input type="hidden" name="cdccs_topictree" id="cdccs_topictree" value="<?php echo $topics ?>"/>
+    <input type="hidden" name="cdccs_titleval" id="cdccs_titleval" value="<?php echo $title ?>"/>
+    <input type="hidden" name="cdccs_urlmediaidval" id="cdccs_urlmediaidval" value="<?php echo $url_id ?>"/>
   <?php
 }
 
 function hhs_digital_media_display_options_meta_box( $hhs_digital_media_item ) {
+  $strip_images = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_stripimages', true ) );
+  $strip_scripts = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_stripscripts', true ) );
+  $strip_anchors = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_stripanchors', true ) );
+  $strip_comments = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_stripcomments', true ) );
+  $strip_inline_styles = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_stripinlinestyles', true ) );
+  $strip_breaks = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_stripbreaks', true ) );
+  $image_float = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_imagefloat', true ) );
+  $css_classes = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_cssclasses', true ) );
+  $element_ids = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_ids', true ) );
+  $xpath = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_xpath', true ) );
+  $namespace = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_namespace', true ) );
+  $links_same_window = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_linkssamewindow', true ) );
+  $width = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_width', true ) );
+  $height = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_height', true ) );
+  $https = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_https', true ) );
+  $encoding = esc_html( get_post_meta( $hhs_digital_media_item->ID, 'cdccs_encoding', true ) );
   ?>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_stripimages">Strip Images:</label>
-        <input type="checkbox" id="cdccs_stripimages" name="cdccs_stripimages"/>
+        <input type="checkbox" id="cdccs_stripimages" name="cdccs_stripimages" <?php echo checked( $strip_images, "1" ); ?> />
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_stripscripts">Strip Scripts:</label>
-        <input type="checkbox" id="cdccs_stripscripts" name="cdccs_stripscripts"/>
+        <input type="checkbox" id="cdccs_stripscripts" name="cdccs_stripscripts" <?php echo checked( $strip_scripts, "1" ); ?> />
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_stripanchors">Strip Anchors:</label>
-        <input type="checkbox" id="cdccs_stripanchors" name="cdccs_stripanchors"/>
+        <input type="checkbox" id="cdccs_stripanchors" name="cdccs_stripanchors" <?php echo checked( $strip_anchors, "1" ); ?> />
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_stripcomments">Strip Comments:</label>
-        <input type="checkbox" id="cdccs_stripcomments" name="cdccs_stripcomments"/>
+        <input type="checkbox" id="cdccs_stripcomments" name="cdccs_stripcomments" <?php echo checked( $strip_comments, "1" ); ?> />
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_stripinlinestyles">Strip Inline Styles:</label>
-        <input type="checkbox" id="cdccs_stripinlinestyles" name="cdccs_stripinlinestyles"/>
+        <input type="checkbox" id="cdccs_stripinlinestyles" name="cdccs_stripinlinestyles" <?php echo checked( $strip_inline_styles, "1" ); ?> />
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_stripbreaks">Strip Breaks:</label>
-        <input type="checkbox" id="cdccs_stripbreaks" name="cdccs_stripbreaks"/>
+        <input type="checkbox" id="cdccs_stripbreaks" name="cdccs_stripbreaks" <?php echo checked( $strip_breaks, "1" ); ?> />
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_imagefloat">Image Float:</label>
         <select id="cdccs_imagefloat" name="cdccs_imagefloat">
-          <option value="">Default</option>
-          <option value="left">Left</option>
-          <option value="right">Right</option>
+        <option value="" <?php selected( $image_float, '') ?>>Default</option>
+          <option value="left" <?php selected( $image_float, 'left') ?>>Left</option>
+          <option value="right" <?php selected( $image_float, 'right') ?>>Right</option>
         </select>
       </div>    
       <div class="hhs_digital_media_form_field_options">
@@ -175,7 +192,7 @@ function hhs_digital_media_display_options_meta_box( $hhs_digital_media_item ) {
       </div>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_linkssamewindow">Links Open Same Window:</label>
-        <input type="checkbox" id="cdccs_linkssamewindow" name="cdccs_linkssamewindow"/>
+        <input type="checkbox" id="cdccs_linkssamewindow" name="cdccs_linkssamewindow" <?php echo checked( $links_same_window, "1" ); ?> />
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_width">Width:</label>
@@ -187,7 +204,7 @@ function hhs_digital_media_display_options_meta_box( $hhs_digital_media_item ) {
       </div>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_https">Use HTTPS:</label>
-        <input type="checkbox" id="cdccs_https" name="cdccs_https"/>
+        <input type="checkbox" id="cdccs_https" name="cdccs_https" <?php echo checked( $https, "1" ); ?> />
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_encoding">Encoding:</label>
@@ -207,14 +224,90 @@ function hhs_digital_media_preview_meta_box( $hhs_digital_media_item ) {
 }
 
 function add_hhs_digital_media_fields( $hhs_digital_media_item_id, $hhs_digital_media_item ) {
-  // Check post type for movie reviews
   if ( $hhs_digital_media_item->post_type == 'hhs_digital_media' ) {
     // Store data in post meta table if present in post data
-    if ( isset( $_POST['cdccs_source'] ) && $_POST['cdccs_source'] != '' ) {
-      update_post_meta( $hhs_digital_media_item_id, 'cdccs_source', $_POST['cdccs_source'] );
+    if ( isset( $_POST['cdccs_sourceval'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_sourceval', $_POST['cdccs_source'] );
     }
-    if ( isset( $_POST['cdccs_searchtype'] ) && $_POST['cdccs_searchtype'] != '' ) {
+    if ( isset( $_POST['cdccs_searchtype'] ) ) {
       update_post_meta( $hhs_digital_media_item_id, 'cdccs_searchtype', $_POST['cdccs_searchtype'] );
+    }
+    if ( isset( $_POST['cdccs_fromdate'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_fromdate', $_POST['cdccs_fromdate'] );
+    }
+    if ( isset( $_POST['cdccs_mediatypesval'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_mediatypesval', $_POST['cdccs_mediatypesval'] );
+    }
+    if ( isset( $_POST['cdccs_topictree'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_topictree', $_POST['cdccs_topictree'] );
+    }
+    if ( isset( $_POST['cdccs_titleval'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_titleval', $_POST['cdccs_titleval'] );
+    }
+    if ( isset( $_POST['cdccs_url'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_url', $_POST['cdccs_url'] );
+    }
+    if ( isset( $_POST['cdccs_urlmediaidval'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_urlmediaidval', $_POST['cdccs_urlmediaidval'] );
+    }
+    if ( isset( $_POST['cdccs_stripimages'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripimages', TRUE );
+    } else {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripimages', FALSE );
+    }
+    if ( isset( $_POST['cdccs_stripscripts'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripscripts', TRUE );
+    } else {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripscripts', FALSE );
+    }
+    if ( isset( $_POST['cdccs_stripanchors'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripanchors', TRUE );
+    } else {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripanchors', FALSE );
+    }
+    if ( isset( $_POST['cdccs_stripcomments'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripcomments', TRUE );
+    } else {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripcomments', FALSE );
+    }
+    if ( isset( $_POST['cdccs_stripbreaks'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripbreaks', TRUE );
+    } else {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripbreaks', FALSE );
+    }
+    if ( isset( $_POST['cdccs_imagefloat'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_imagefloat', $_POST['cdccs_imagefloat'] );
+    }
+    if ( isset( $_POST['cdccs_cssclasses'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_cssclasses', $_POST['cdccs_cssclasses'] );
+    }
+    if ( isset( $_POST['cdccs_ids'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_ids', $_POST['cdccs_ids'] );
+    }
+    if ( isset( $_POST['cdccs_xpath'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_xpath', $_POST['cdccs_xpath'] );
+    }
+    if ( isset( $_POST['cdccs_namespace'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_namespace', $_POST['cdccs_namespace'] );
+    }
+    if ( isset( $_POST['cdccs_linkssamewindow'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_linkssamewindow', TRUE );
+    } else {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_linkssamewindow', FALSE );
+    }
+    if ( isset( $_POST['cdccs_width'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_width', $_POST['cdccs_width'] );
+    }
+    if ( isset( $_POST['cdccs_height'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_height', $_POST['cdccs_height'] );
+    }
+    if ( isset( $_POST['cdccs_https'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_https', TRUE );
+    } else {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_https', FALSE );
+    }
+    if ( isset( $_POST['cdccs_encoding'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_encoding', $_POST['cdccs_encoding'] );
     }
   }
 }
@@ -229,5 +322,5 @@ function add_hhs_content($content) {
 add_action( 'init', 'create_hhs_digital_media' );
 add_action( 'admin_init', 'hhs_digital_media_admin' );
 add_action( 'save_post', 'add_hhs_digital_media_fields', 10, 2 );
-add_action('the_content', 'add_hhs_content');
+add_action( 'the_content', 'add_hhs_content' );
 ?>
