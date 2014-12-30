@@ -218,8 +218,10 @@ function hhs_digital_media_display_options_meta_box( $hhs_digital_media_item ) {
 }
 
 function hhs_digital_media_preview_meta_box( $hhs_digital_media_item ) {
+  $preview_url = esc_html( get_post_meta( $id, 'cdccs_preview', true ) );
   ?>
     <div id="cdccs_preview_div"></div>
+    <input type="hidden" name="cdccs_preview" id="cdccs_preview" value="<?php echo $preview_url ?>"/>
   <?php
 }
 
@@ -249,6 +251,9 @@ function add_hhs_digital_media_fields( $hhs_digital_media_item_id, $hhs_digital_
     }
     if ( isset( $_POST['cdccs_urlmediaidval'] ) ) {
       update_post_meta( $hhs_digital_media_item_id, 'cdccs_urlmediaidval', $_POST['cdccs_urlmediaidval'] );
+    }
+    if ( isset( $_POST['cdccs_preview'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_preview', $_POST['cdccs_preview'] );
     }
     if ( isset( $_POST['cdccs_stripimages'] ) ) {
       update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripimages', TRUE );
@@ -319,7 +324,6 @@ function add_hhs_digital_media_fields( $hhs_digital_media_item_id, $hhs_digital_
 
 function add_hhs_content($content) {
   if ( get_post_type() == 'hhs_digital_media' ) {
-    //$content .= "<div>Search Type: " . esc_html( get_post_meta( get_the_ID(), 'cdccs_searchtype', true ))."<div>";
     $id = get_the_ID();
     $preview_url = esc_html( get_post_meta( $id, 'cdccs_preview', true ) );
     $content = '<div id="'.$id.'"></div>';
@@ -341,6 +345,7 @@ function add_hhs_content($content) {
     $content .= '</script>';
   }
   return $content;
+  //return '<div id="'.$id.'"></div>';
 }
 
 add_action( 'init', 'create_hhs_digital_media' );
