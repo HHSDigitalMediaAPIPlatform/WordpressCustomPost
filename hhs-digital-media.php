@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: HHS Digital Media
-Plugin URI: http://www.cdc.gov
+Plugin URI: https://github.com/HHSDigitalMediaAPIPlatform/WordpressCustomPost
 Description: This is a Wordpress module that can be used to search and embed HHS Digital Media content. It has been built and tested on Wordpress 3.9.1.
 Version: 1.0
 Author: David Cummo
@@ -39,13 +39,8 @@ function create_hhs_digital_media() {
   flush_rewrite_rules();
 }
 
-function hhs_digital_media_admin() {
-  wp_enqueue_script( 'hhs_digital_media', plugins_url( '/html/js/hhs_digital_media.js', __FILE__ ), array( 'json2', 'jquery', 'jquery-ui-autocomplete'), '1.0.0');
-  wp_enqueue_script( 'hhs_jstree', plugins_url( '/html/js/jstree.js', __FILE__ ), array( 'jquery'));
-  wp_enqueue_script( 'hhs_jquery-maskedinput', plugins_url( '/html/js/jquery.maskedinput.js', __FILE__ ), array( 'jquery'));
-  wp_enqueue_style( 'hhs_digital_media', plugins_url( '/html/css/hhs_digital_media.css', __FILE__ ), array(), '1.0.0');
-  wp_enqueue_style( 'hhs_treestyle', plugins_url( '/html/css/treestyle.css', __FILE__ ), array(), '1.0.0');
-
+function hhs_digital_media_meta_boxes( $post ) {
+ 
   add_meta_box( 'hhs_digital_media_select_content_meta_box',
     'Select Content',
     'hhs_digital_media_select_content_meta_box',
@@ -63,6 +58,18 @@ function hhs_digital_media_admin() {
     'hhs_digital_media_preview_meta_box',
     'hhs_digital_media', 'normal', 'high'
   );
+}
+
+function hhs_digital_media_enqueue_scripts($hook) {
+  if ( get_post_type() != 'hhs_digital_media' ) {
+    return;
+  }
+
+  wp_enqueue_script( 'hhs_digital_media', plugins_url( '/html/js/hhs_digital_media.js', __FILE__ ), array( 'json2', 'jquery', 'jquery-ui-autocomplete'), '1.0.0');
+  wp_enqueue_script( 'hhs_jstree', plugins_url( '/html/js/jstree.js', __FILE__ ), array( 'jquery'));
+  wp_enqueue_script( 'hhs_jquery-maskedinput', plugins_url( '/html/js/jquery.maskedinput.js', __FILE__ ), array( 'jquery'));
+  wp_enqueue_style( 'hhs_digital_media', plugins_url( '/html/css/hhs_digital_media.css', __FILE__ ), array(), '1.0.0');
+  wp_enqueue_style( 'hhs_treestyle', plugins_url( '/html/css/treestyle.css', __FILE__ ), array(), '1.0.0');
 }
 
 function hhs_digital_media_select_content_meta_box( $hhs_digital_media_item ) {
@@ -345,11 +352,11 @@ function add_hhs_content($content) {
     $content .= '</script>';
   }
   return $content;
-  //return '<div id="'.$id.'"></div>';
 }
 
 add_action( 'init', 'create_hhs_digital_media' );
-add_action( 'admin_init', 'hhs_digital_media_admin' );
 add_action( 'save_post', 'add_hhs_digital_media_fields', 10, 2 );
 add_action( 'the_content', 'add_hhs_content' );
+add_action( 'admin_enqueue_scripts', 'hhs_digital_media_enqueue_scripts' );
+add_action( 'add_meta_boxes_hhs_digital_media', 'hhs_digital_media_meta_boxes' );
 ?>
