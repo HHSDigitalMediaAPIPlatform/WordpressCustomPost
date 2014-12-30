@@ -319,7 +319,26 @@ function add_hhs_digital_media_fields( $hhs_digital_media_item_id, $hhs_digital_
 
 function add_hhs_content($content) {
   if ( get_post_type() == 'hhs_digital_media' ) {
-    $content .= "<div>Search Type: " . esc_html( get_post_meta( get_the_ID(), 'cdccs_searchtype', true ))."<div>";
+    //$content .= "<div>Search Type: " . esc_html( get_post_meta( get_the_ID(), 'cdccs_searchtype', true ))."<div>";
+    $id = get_the_ID();
+    $preview_url = esc_html( get_post_meta( $id, 'cdccs_preview', true ) );
+    $content = '<div id="'.$id.'"></div>';
+    $content .= '<script type="text/javascript">';
+    $content .= 'function mediaCallback_'.$id.'(response) {';
+    $content .= 'if (response && response.results) {';
+    $content .= 'jQuery(\'#'.$id.'\').html(response.results.content);';
+    $content .= '}';
+    $content .= '}';
+    $content .= 'jQuery(document).ready(function() {';
+    $content .= 'jQuery.ajaxSetup({cache:false});';
+    $content .= 'jQuery.ajax({';
+    $content .= 'url: "'.$preview_url.'",';
+    $content .= 'dataType: "jsonp",';
+    $content .= 'success: mediaCallback_'.$id.',';
+    $content .= 'error: function(xhr, ajaxOptions, thrownError) {}';
+    $content .= '});';
+    $content .= '});';
+    $content .= '</script>';
   }
   return $content;
 }
