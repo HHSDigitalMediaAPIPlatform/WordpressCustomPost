@@ -176,19 +176,19 @@ function hhs_digital_media_display_options_meta_box( $hhs_digital_media_item ) {
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_cssclasses">CSS Classes (comma separated):</label>
-        <input type="text" id="cdccs_cssclasses" name="cdccs_cssclasses"/>
+        <input type="text" id="cdccs_cssclasses" name="cdccs_cssclasses" value="<?php echo $css_classes ?>"/>
       </div>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_ids">Element Ids (comma separated):</label>
-        <input type="text" id="cdccs_ids" name="cdccs_ids"/>
+        <input type="text" id="cdccs_ids" name="cdccs_ids" value="<?php echo $element_ids ?>"/>
       </div>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_xpath">XPath:</label>
-        <input type="text" id="cdccs_xpath" name="cdccs_xpath"/>
+        <input type="text" id="cdccs_xpath" name="cdccs_xpath" value="<?php echo $xpath ?>"/>
       </div>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_namespace">Namespace Prefix:</label>
-        <input type="text" id="cdccs_namespace" name="cdccs_namespace"/>
+        <input type="text" id="cdccs_namespace" name="cdccs_namespace" value="<?php echo $namespace ?>"/>
       </div>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_linkssamewindow">Links Open Same Window:</label>
@@ -196,11 +196,11 @@ function hhs_digital_media_display_options_meta_box( $hhs_digital_media_item ) {
       </div>    
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_width">Width:</label>
-        <input type="text" id="cdccs_width" name="cdccs_width"/>
+        <input type="text" id="cdccs_width" name="cdccs_width" value="<?php echo $width ?>"/>
       </div>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_height">Height:</label>
-        <input type="text" id="cdccs_height" name="cdccs_height"/>
+        <input type="text" id="cdccs_height" name="cdccs_height" value="<?php echo $height ?>"/>
       </div>
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_https">Use HTTPS:</label>
@@ -209,9 +209,9 @@ function hhs_digital_media_display_options_meta_box( $hhs_digital_media_item ) {
       <div class="hhs_digital_media_form_field_options">
         <label for="cdccs_encoding">Encoding:</label>
         <select id="cdccs_encoding" name="cdccs_encoding">
-          <option value="">Default</option>
-          <option value="utf-8">UTF-8</option>
-          <option value="iso-8859-1">iso-8859-1</option>
+        <option value="" <?php selected( $encoding, '') ?>>Default</option>
+          <option value="utf-8" <?php selected( $encoding, 'utf-8') ?>>UTF-8</option>
+          <option value="iso-8859-1" <?php selected( $encoding, 'iso-8859-1') ?>>iso-8859-1</option>
         </select>
       </div>    
   <?php
@@ -269,6 +269,11 @@ function add_hhs_digital_media_fields( $hhs_digital_media_item_id, $hhs_digital_
       update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripcomments', TRUE );
     } else {
       update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripcomments', FALSE );
+    }
+    if ( isset( $_POST['cdccs_stripinlinestyles'] ) ) {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripinlinestyles', TRUE );
+    } else {
+      update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripinlinestyles', FALSE );
     }
     if ( isset( $_POST['cdccs_stripbreaks'] ) ) {
       update_post_meta( $hhs_digital_media_item_id, 'cdccs_stripbreaks', TRUE );
